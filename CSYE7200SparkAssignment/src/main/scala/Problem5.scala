@@ -16,7 +16,6 @@ object Problem5 {
 
 
     val dfWithMark = df.withColumn("Age Range", ceil(lit(floor(df.col("Age"))/10)))
-    dfWithMark.show(40)
     val ageRateFare=dfWithMark.filter(col("Age Range").isNotNull).groupBy("Age Range").agg(avg("Fare"))
     ageRateFare.sort(col("Age Range")).show()
     val ageRateSurvived= dfWithMark.filter(col("Age Range").isNotNull).groupBy("Age Range").agg(avg("Survived"))

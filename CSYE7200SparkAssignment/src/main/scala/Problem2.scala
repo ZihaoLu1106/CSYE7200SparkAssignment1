@@ -15,7 +15,16 @@ object Problem2 {
       .csv("src\\main\\resources\\train.csv")
 
 
-    val survive= df.groupBy("Pclass").agg(avg("Survived")).alias("surviver percentage")
-    survive.sort(col("Pclass"))show()
+    val survive= df.groupBy("Pclass").agg(avg("Survived").alias("survived rate"))
+    survive.sort(col("Pclass")).show()
+
+
+    val maxAvgSurvived = survive.agg(max("survived rate")).head().getDouble(0)
+    val maxAvgSurvivedRow = survive.filter(col("survived rate") === maxAvgSurvived)
+    val maxClass= maxAvgSurvivedRow.select("Pclass").head()(0)
+    val maxRate= maxAvgSurvivedRow.select("survived rate").head()(0)
+    println("The class has the highest survival rate is "+maxClass+" ,which has "+maxRate+" rate to survive")
+
+
   }
 }

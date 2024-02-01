@@ -16,7 +16,8 @@ object Problem4 {
 
 
     val jack= df.filter(df.col("Pclass").equalTo(3)  &&  df.col("Age")>18 && df.col("Age")<21 &&df.col("Sex").equalTo("male")&&df.col("SibSp").equalTo(0)&&df.col("Parch").equalTo(0)&& df.col("Survived").equalTo(0))
-    jack.show()
+    val num=jack.count()
+    jack.show(num.toInt)
   }
 }
 
